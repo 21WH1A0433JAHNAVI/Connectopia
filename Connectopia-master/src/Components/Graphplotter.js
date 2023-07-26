@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
+import { compile } from 'mathjs';
 import io from 'socket.io-client';
 
 const socket = io('http://localhost:4000'); // Replace with your server address
@@ -22,18 +23,21 @@ const RealTimeGraphPlotter = () => {
 
   useEffect(() => {
     try {
-      const xData = [];
-      const yData = [];
+      const compiledEquation = compile(equation);
+
+      const xValues = [];
+      const yValues = [];
 
       // Increase data density for a smoother plot
-      const stepSize = 0.1;
+      const stepSize = 0.01;
       for (let x = -10; x <= 10; x += stepSize) {
-        xData.push(x);
-        const y = eval(equation.replace(/x/g, x));
-        yData.push(y);
+        xValues.push(x);
+        const scope = { x };
+        const result = compiledEquation.evaluate(scope);
+        yValues.push(result);
       }
 
-      const graphData = { xValues: xData, yValues: yData };
+      const graphData = { xValues, yValues };
       socket.emit('updateGraph', graphData);
     } catch (error) {
       console.error(error);
