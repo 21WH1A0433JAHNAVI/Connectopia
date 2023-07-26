@@ -1,25 +1,47 @@
 import { useMeeting } from "@videosdk.live/react-sdk";
-import GraphPlotter from "./Graphplotter";
-const MeetingView = () => {
-  const {localMicOn, enableWebcam, disableWebcam, toggleWebcam,  unmuteMic, muteMic, toggleMic } = useMeeting();
+import Controls from './Controls'
+import ParticipantView from "./ParticipantView";
+import { useState } from "react";
 
-  const handleEnableWebcam = () => {enableWebcam();};
-  const handleDisableWebcam = () => {disableWebcam();};
-  const handleToggleWebcam = () => {toggleWebcam();};
-  const handleUnmuteMic = () => {unmuteMic();};
-  const handleMuteMic = () => {muteMic();};
-  const handleToggleMic = () => {toggleMic();};
+function MeetingView(props) {
+  const [joined, setJoined] = useState(null);
+  //Get the method which will be used to join the meeting.
+  //We will also get the participants list to display all participants
+  const { join, participants } = useMeeting({
+    //callback for when meeting is joined successfully
+    onMeetingJoined: () => {
+      setJoined("JOINED");
+    },
+    //callback for when meeting is left
+    onMeetingLeft: () => {
+      props.onMeetingLeave();
+    },
+  });
+  const joinMeeting = () => {
+    setJoined("JOINING");
+    join();
+  };
 
   return (
-    <>
-      <button onClick={handleEnableWebcam}>Enable Webcam</button>
-      <button onClick={handleDisableWebcam}>Disable Webcam</button>
-      <button onClick={handleToggleWebcam}>Toggle Webcam</button>
-      <button onClick={handleMuteMic}>Mute Mic</button>
-      <button onClick={handleUnmuteMic}>Unmute Mic</button>
-      <button onClick={handleToggleMic}>Toggle Mic</button>
-      Local Mic is {localMicOn}
-    </>
+    <div className="container">
+      <h3>Meeting Id: {props.meetingId}</h3>
+      {joined && joined === "JOINED" ? (
+        <div>
+          <Controls />
+          {/* //For rendering all the participants in the meeting */}
+          {[...participants.keys()].map((participantId) => (
+            <ParticipantView
+              participantId={participantId}
+              key={participantId}
+            />
+          ))}
+        </div>
+      ) : joined && joined === "JOINING" ? (
+        <p>Joining the meeting...</p>
+      ) : (
+        <button onClick={joinMeeting}>Join</button>
+      )}
+    </div>
   );
 };
 export default MeetingView

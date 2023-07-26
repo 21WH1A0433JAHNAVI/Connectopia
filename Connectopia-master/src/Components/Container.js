@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {useMeeting,Constants,} from "@videosdk.live/react-sdk";
 import SpeakerView from "./SpeakerView";
 import ViewerView from "./ViewerView";
-
+import RealTimeGraphPlotter from "./Graphplotter";
 // this the initial page => where you wait to join the meet
 
 function Container(props) {
@@ -41,9 +41,16 @@ function Container(props) {
       <h3>Meeting Id: {props.meetingId}</h3>
       {joined && joined === "JOINED" ? (
         mMeeting.localParticipant.mode === Constants.modes.CONFERENCE ? (
-          <SpeakerView />
+          <>
+            <SpeakerView />
+            <RealTimeGraphPlotter/>
+          </>
+          
         ) : mMeeting.localParticipant.mode === Constants.modes.VIEWER ? (
-          <ViewerView />
+          <>
+            <ViewerView />
+            <RealTimeGraphPlotter/>
+          </>
         ) : null
       ) : joined && joined === "JOINING" ? (
         <p>Joining the meeting...</p>
