@@ -5,19 +5,19 @@ import io from 'socket.io-client';
 
 const socket = io('http://localhost:4000'); // Replace with your server address
 
-const GraphPlotter = () => {
-  const [equation, setEquation] = useState('x^2 + y^2'); // Default equation
-  const [users, setUsers] = useState({});
+const RealTimeGraphPlotter = () => {
+  const [equation, setEquation] = useState('x^2'); // Default equation
+  const [xValues, setXValues] = useState([]);
+  const [yValues, setYValues] = useState([]);
 
   useEffect(() => {
-    // Listen for the initial equation from the server
     socket.on('equation', (data) => {
       setEquation(data);
     });
 
-    // Listen for updates from the server
-    socket.on('updateGraph', (data) => {
-      setUsers(data);
+    socket.on('graphData', ({ xValues, yValues }) => {
+      setXValues(xValues);
+      setYValues(yValues);
     });
   }, []);
 
@@ -27,21 +27,18 @@ const GraphPlotter = () => {
 
       const xValues = [];
       const yValues = [];
-      const zValues = [];
 
-      for (let x = -10; x <= 10; x += 1) {
-        for (let y = -10; y <= 10; y += 1) {
-          xValues.push(x);
-          yValues.push(y);
-
-          const scope = { x, y };
-          const result = compiledEquation.evaluate(scope);
-          zValues.push(result);
-        }
+      // Increase data density for a smoother plot
+      const stepSize = 0.01;
+      for (let x = -10; x <= 10; x += stepSize) {
+        xValues.push(x);
+        const scope = { x };
+        const result = compiledEquation.evaluate(scope);
+        yValues.push(result);
       }
 
-      const data = { equation, xValues, yValues, zValues };
-      socket.emit('updateGraph', data);
+      const graphData = { xValues, yValues };
+      socket.emit('updateGraph', graphData);
     } catch (error) {
       console.error(error);
     }
@@ -53,39 +50,28 @@ const GraphPlotter = () => {
 
   return (
     <div>
-      <h1>Collaborative Graph Plotter</h1>
+      <h1>Real-Time Graph Plotter (Single Variable)</h1>
       <div>
         <input type="text" value={equation} onChange={handleEquationChange} />
-        <button onClick={() => setEquation('x^2 + y^2')}>Default</button>
+        <button onClick={() => setEquation('x^2')}>Default</button>
       </div>
       <Plot
         data={[
           {
-            x: users[socket.id]?.xValues || [],
-            y: users[socket.id]?.yValues || [],
-            z: users[socket.id]?.zValues || [],
-            type: 'surface',
+            x: xValues,
+            y: yValues,
+            type: 'scatter',
+            mode: 'lines', // Set the mode to 'lines' to display lines
           },
         ]}
         layout={{
           title: 'Graph Plotter',
-          scene: {
-            xaxis: { title: 'X-axis' },
-            yaxis: { title: 'Y-axis' },
-            zaxis: { title: 'Z-axis' },
-          },
+          xaxis: { title: 'X-axis' },
+          yaxis: { title: 'Y-axis' },
         }}
       />
-      <div>
-        <h3>Collaborators:</h3>
-        <ul>
-          {Object.entries(users).map(([id, user]) => (
-            <li key={id}>{`User ${id}: ${user.equation}`}</li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };
 
-export default GraphPlotter;
+export default RealTimeGraphPlotter;
