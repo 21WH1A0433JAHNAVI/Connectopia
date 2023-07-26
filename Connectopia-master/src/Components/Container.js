@@ -3,6 +3,8 @@ import {useMeeting,Constants,} from "@videosdk.live/react-sdk";
 import SpeakerView from "./SpeakerView";
 import ViewerView from "./ViewerView";
 import RealTimeGraphPlotter from "./Graphplotter";
+import Whiteboard from "./CollabBoard";
+import Chat from "./Chat";
 // this the initial page => where you wait to join the meet
 
 function Container(props) {
@@ -44,12 +46,16 @@ function Container(props) {
           <>
             <SpeakerView />
             <RealTimeGraphPlotter/>
+            <Whiteboard/>
+            <Chat/>
           </>
           
         ) : mMeeting.localParticipant.mode === Constants.modes.VIEWER ? (
           <>
             <ViewerView />
             <RealTimeGraphPlotter/>
+            <Whiteboard/>
+            <Chat/>
           </>
         ) : null
       ) : joined && joined === "JOINING" ? (

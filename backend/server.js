@@ -12,12 +12,22 @@ const io = socketIo(httpServer, {
 });
 
 const PORT = 4000; // Replace with your desired port number
-
+let drawingData = null
 const defaultEquation = 'x^2'; // Default equation for new clients
 
 io.on('connection', (socket) => {
+  
   console.log('A user connected.');
-
+if (drawingData) {
+    socket.emit('drawingData', drawingData);
+  }
+  socket.on('updateDrawing', (data) => {
+    drawingData = data;
+    socket.broadcast.emit('receiveDrawingData', data);
+  });
+  socket.on('disconnect', () => {
+    console.log('A user disconnected.');
+  });
   // Send default equation to the new client
   socket.emit('equation', defaultEquation);
 
@@ -25,10 +35,16 @@ io.on('connection', (socket) => {
   socket.on('updateGraph', (data) => {
     io.emit('graphData', data);
   });
+  // Receive chat messages from clients and broadcast them to all other clients
+  socket.on('sendMessage', (messageData) => {
+    io.emit('receiveMessage', messageData);
+  });
 
   socket.on('disconnect', () => {
     console.log('A user disconnected.');
   });
+
+  
 });
 
 httpServer.listen(PORT, () => {
