@@ -12,9 +12,6 @@ import {
 import Controls from "./Controls";
 import ParticipantView from "./ParticipantView";
 import Hls from "hls.js";
-
-
-
 import Whiteboard from "./Whiteboard";
 import ExcalidrawBoard from "./Excalidraw";
 
@@ -75,7 +72,6 @@ function SpeakerView() {
   
   return (
     <div> 
-      <p>Current HLS State: {hlsState}</p>
       {/* Controls for the meeting */}
       <Controls />
       {hlsState !== "HLS_PLAYABLE" ? (

@@ -57,7 +57,6 @@ function App() {
           micEnabled: false,
           webcamEnabled: false,
           name: "John Doe",
-          //These will be the mode of the participant CONFERENCE or VIEWER
           mode: mode,
         }}
         token={authToken}
