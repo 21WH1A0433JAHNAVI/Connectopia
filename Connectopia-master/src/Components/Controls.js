@@ -49,10 +49,14 @@ function Controls() {
         Start HLS
       </button>
       <button className="btn btn-light me-2" onClick={() => stopHls()}>Stop HLS</button>
+      <button className="btn btn-light me-2" onClick={() => handleCopyMeetingId()}>
+        Copy Meeting ID
+      </button>
     </div>
   );
 }
 
 export default Controls;
+
 
 
