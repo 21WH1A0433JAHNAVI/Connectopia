@@ -1,7 +1,6 @@
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState } from 'react';
-import clipboardCopy from 'clipboard-copy';
 import { useEffect, useMemo, useRef } from "react"
 import {
   MeetingProvider,
@@ -50,17 +49,7 @@ function App() {
     setMeetingId(null);
   };
 
-  const handleCopyMeetingId = () => {
-    if (meetingId) {
-      clipboardCopy(meetingId)
-        .then(() => {
-          alert('Meeting ID copied to clipboard!');
-        })
-        .catch((error) => {
-          console.error('Failed to copy Meeting ID:', error);
-        });
-    }
-  };
+ 
 
   return (
     <div className="">
@@ -80,11 +69,6 @@ function App() {
           {() => (
             <>
               <Container meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
-              <div className="mt-3">
-                <button className="btn btn-primary" onClick={handleCopyMeetingId}>
-                  Copy Meeting ID
-                </button>
-              </div>
             </>
           )}
         </MeetingConsumer>
