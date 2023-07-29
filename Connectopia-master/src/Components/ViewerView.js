@@ -9,7 +9,7 @@ import {
   usePubSub
 } from "@videosdk.live/react-sdk";
 
-import Controls from "./ViewerControls";
+import Controls from "./Controls";
 import ParticipantView from "./ParticipantView";
 import Hls from "hls.js";
 
@@ -77,7 +77,7 @@ function SpeakerView() {
     <div> 
       <p>Current HLS State: {hlsState}</p>
       {/* Controls for the meeting */}
-      <Controls />
+      
       {hlsState !== "HLS_PLAYABLE" ? (
         <div>
           <p>HLS has not started yet or is stopped</p>
@@ -109,6 +109,7 @@ function SpeakerView() {
       {viewers.map((participant) => (
         <ParticipantView participantId={participant.id} key={participant.id} />
       ))}
+      <Controls />
     </div>
   );
 }

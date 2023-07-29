@@ -5,7 +5,7 @@ import ViewerView from "./ViewerView";
 import RealTimeGraphPlotter from "./Graphplotter";
 import Whiteboard from "./CollabBoard";
 import Chat from "./Chat";
-import './JoinScreen.css'
+import './Container.css'
 import {FiCopy} from 'react-icons/fi'
 // this the initial page => where you wait to join the meet
 
@@ -46,8 +46,8 @@ function Container(props) {
   }, [mMeeting]);
 console.log(mMeeting)
   return (
-    <div className="container idscreen">
-      <h4>Meeting Id : {props.meetingId} <FiCopy onClick={copyMeetingId} /></h4>
+    <div className="">
+      <h4 className="mt-5">Meeting Id : {props.meetingId} <FiCopy onClick={copyMeetingId} /></h4>
       {joined && joined === "JOINED" ? (
         mMeeting.localParticipant.mode === Constants.modes.CONFERENCE ? (
           <>
@@ -56,10 +56,11 @@ console.log(mMeeting)
           
         ) : mMeeting.localParticipant.mode === Constants.modes.VIEWER ? (
           <>
-            <ViewerView />
+            {/* <ViewerView />
             <RealTimeGraphPlotter/>
             <Whiteboard/>
-            <Chat/>
+            <Chat/> */}
+            <SpeakerView />
           </>
         ) : null
       ) : joined && joined === "JOINING" ? (
