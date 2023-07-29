@@ -1,10 +1,25 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import {MeetingProvider,MeetingConsumer,useMeeting,useParticipant,Constants,} from "@videosdk.live/react-sdk";
-// import Controls from "./Controls";
-import ViewerControls from "./ViewerControls";
+
+import {
+  MeetingProvider,
+  MeetingConsumer,
+  useMeeting,
+  useParticipant,
+  Constants,
+  usePubSub
+} from "@videosdk.live/react-sdk";
+
+import Controls from "./ViewerControls";
 import ParticipantView from "./ParticipantView";
 import Hls from "hls.js";
-function ViewerView() {
+
+
+
+import Whiteboard from "./Whiteboard";
+import ExcalidrawBoard from "./Excalidraw";
+
+
+function SpeakerView() {
   //Get the participants and hlsState from useMeeting
   const { participants, hlsState } = useMeeting();
 
@@ -17,7 +32,8 @@ function ViewerView() {
     );
     return speakerParticipants;
   }, [participants]);
-  //Filtering the host/speakers from all the participants
+  
+  //Filtering the viewers from all the participants
   const viewers = useMemo(() => {
     const viewersParticipants = [...participants.values()].filter(
       (participant) => {
@@ -55,12 +71,13 @@ function ViewerView() {
       }
     }
   }, [hlsUrls, hlsState, playerRef.current]);
+  
+  
   return (
-    <div>
-          
+    <div> 
       <p>Current HLS State: {hlsState}</p>
       {/* Controls for the meeting */}
-      <ViewerControls />
+      <Controls />
       {hlsState !== "HLS_PLAYABLE" ? (
         <div>
           <p>HLS has not started yet or is stopped</p>
@@ -92,9 +109,8 @@ function ViewerView() {
       {viewers.map((participant) => (
         <ParticipantView participantId={participant.id} key={participant.id} />
       ))}
-      
     </div>
   );
 }
 
-export default ViewerView
+export default SpeakerView

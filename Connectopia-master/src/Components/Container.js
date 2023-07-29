@@ -37,17 +37,14 @@ function Container(props) {
     useEffect(() => {
     mMeetingRef.current = mMeeting;
   }, [mMeeting]);
-
+console.log(mMeeting)
   return (
     <div className="container">
-      <h3>Meeting Id: {props.meetingId}</h3>
+      <h4>Meeting Id: {props.meetingId}</h4>
       {joined && joined === "JOINED" ? (
         mMeeting.localParticipant.mode === Constants.modes.CONFERENCE ? (
           <>
             <SpeakerView />
-            <RealTimeGraphPlotter/>
-            <Whiteboard/>
-            <Chat/>
           </>
           
         ) : mMeeting.localParticipant.mode === Constants.modes.VIEWER ? (

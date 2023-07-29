@@ -2,11 +2,15 @@ import React, { useState } from "react";
 
 function JoinScreen({ getMeetingAndToken, setMode }) {
   const [meetingId, setMeetingId] = useState(null);
-  //Set the mode of joining participant and set the meeting id or generate new one
-  const onClick = async (mode) => {
+  const [type, setType] = useState(""); // State to store the participant type (host or participant)
+
+  const onClick = async (mode, participantType) => {
     setMode(mode);
-    await getMeetingAndToken(meetingId);
+    setType(participantType); // Set the participant type (host or participant)
+    console.log(participantType)
+    await getMeetingAndToken(meetingId, participantType); // Pass the participant type to the function
   };
+
   return (
     <div className="container text-light col-lg-4">
       <input
@@ -18,13 +22,20 @@ function JoinScreen({ getMeetingAndToken, setMode }) {
         className="bg-light form-control "
       />
       <br />
-      <button className="btn btn-warning" onClick={() => onClick("CONFERENCE")}>Join as Host</button>
-       {" | "}
-      <button className="btn btn-warning" onClick={() => onClick("VIEWER")}>Join as Viewer</button>
+      <button className="btn btn-warning" onClick={() => onClick("CONFERENCE", "host")}>
+        Join as Host
+      </button>{" "}
+      |{" "}
+      <button className="btn btn-warning" onClick={() => onClick("VIEWER", "participant")}>
+        Join as Viewer
+      </button>
       <br />
       <br />
-      <button className="btn btn-light" onClick={() => onClick("CONFERENCE")}>Create Meeting</button>
+      <button className="btn btn-light" onClick={() => onClick("CONFERENCE", "host")}>
+        Create Meeting
+      </button>
     </div>
   );
 }
-export default JoinScreen
+
+export default JoinScreen;
