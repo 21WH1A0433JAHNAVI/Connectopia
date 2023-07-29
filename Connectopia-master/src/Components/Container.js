@@ -46,8 +46,8 @@ function Container(props) {
   }, [mMeeting]);
 console.log(mMeeting)
   return (
-    <div className="container">
-      <h4>Meeting Id: {props.meetingId}</h4>
+    <div className="container idscreen">
+      <h4>Meeting Id : {props.meetingId} <FiCopy onClick={copyMeetingId} /></h4>
       {joined && joined === "JOINED" ? (
         mMeeting.localParticipant.mode === Constants.modes.CONFERENCE ? (
           <>
