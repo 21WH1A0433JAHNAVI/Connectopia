@@ -13,3 +13,6 @@ The page will reload when you make changes.
 
 In this web-application, we have features like whiteboard, graph plotter, screen sharing and chat feature.
 You can also go backward in this application, incase you've missed the points before.
+
+
+To learn React, check out the [React documentation](https://reactjs.org/).
