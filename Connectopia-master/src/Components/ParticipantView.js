@@ -2,8 +2,9 @@ import React from 'react'
 import { useEffect, useMemo, useRef, useState } from "react";
 import {MeetingProvider,MeetingConsumer,useMeeting,useParticipant,Constants} from "@videosdk.live/react-sdk";
 // import MeetingView from './Meetingview';
+import {BsFillCameraVideoFill,BsFillCameraVideoOffFill,BsFillMicMuteFill,BsFillMicFill, BsMicFill, BsMicMuteFill} from 'react-icons/bs'
 import ReactPlayer from 'react-player';
-
+import './ParticipantView.css'
 function ParticipantView(props) {
   
   //handling media
@@ -56,9 +57,9 @@ function ParticipantView(props) {
    
   return (
     <div>
-      <p>
-        Participant: {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
-        {micOn ? "ON" : "OFF"}
+      <p className='participant-details'>
+        {displayName}{" "}{webcamOn ? <BsFillCameraVideoFill/> : <BsFillCameraVideoOffFill/>}{" "}
+        {micOn ? <BsMicFill/> : <BsMicMuteFill/>}
       </p>
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
       {webcamOn && (

@@ -1,0 +1,8 @@
+.participant-details{
+    background-color: rgb(177, 177, 177);
+    min-width: 250px;
+    /* padding-inline: 5%; */
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 5px;
+}
