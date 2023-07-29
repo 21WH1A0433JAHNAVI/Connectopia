@@ -20,8 +20,10 @@ import Chat from "./Chat";
 
 import io from 'socket.io-client';
 import './Chat.css'
-
-import {BsSend} from 'react-icons/bs'
+import {TiMessages} from 'react-icons/ti'
+import {FaUserGroup} from 'react-icons/fa'
+import {MdGroup,MdGroupOff} from 'react-icons/md'
+import { BsSend } from "react-icons/bs";
 const socket = io('http://localhost:4000');
 function SpeakerView() {
   //Get the participants and hlsState from useMeeting
@@ -145,15 +147,8 @@ const handleToggleParticipants = () => {
           </div>
         )
       )}
-      </div>
-      <Controls />
-      <button onClick={handleToggleParticipants}>
-        {showParticipants ? "Hide Participants" : "Show Participants"}
-      </button>
-      <button onClick={handleToggleMessages}>
-        {showMessages ? "Hide Messages" : "Show Messages"}
-      </button>
       {showMessages && (
+        //here is the messages div
       <div className='bg-light border rounded p-3'>
         <h2 className='text-dark'>Chat</h2>
         <div>
@@ -181,7 +176,7 @@ const handleToggleParticipants = () => {
         </ul>
         </div>
         <div className="card-footer text-muted d-flex justify-content-start align-items-center p-3">
-        <div className="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+        <div className="card-footer-send text-muted d-flex justify-content-start align-items-center p-3">
           <input className='form-control me-2' placeholder="Type message"
           type="text"
           value={inputMessage}
@@ -192,6 +187,15 @@ const handleToggleParticipants = () => {
         
         </div>
       </div>)}
+      </div>
+      <Controls />
+      <button onClick={handleToggleParticipants}>
+        {showParticipants ? <MdGroup/> : <MdGroupOff/>}
+      </button>
+      <button onClick={handleToggleMessages}>
+        {showMessages ? <TiMessages/> : <TiMessages/>}
+      </button>
+      
 
     </div>
   );
