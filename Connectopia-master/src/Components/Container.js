@@ -56,10 +56,11 @@ console.log(mMeeting)
           
         ) : mMeeting.localParticipant.mode === Constants.modes.VIEWER ? (
           <>
-            <ViewerView />
+            {/* <ViewerView />
             <RealTimeGraphPlotter/>
             <Whiteboard/>
-            <Chat/>
+            <Chat/> */}
+            <SpeakerView />
           </>
         ) : null
       ) : joined && joined === "JOINING" ? (
