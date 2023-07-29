@@ -1,0 +1,16 @@
+.btn-join{
+    background-color: rgb(21, 195, 154);
+    color: white;
+}
+.btn-join:hover{
+    background-color: rgb(33, 150, 122);
+    color: white;
+}
+.btn-create{
+    background-color: black;
+    color: rgb(216, 215, 215);
+}
+.btn-create:hover{
+    background-color: rgb(49, 49, 49);
+    color: white;
+}
