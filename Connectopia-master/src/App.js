@@ -63,7 +63,8 @@ function App() {
   };
 
   return (
-    <div className="container mt-5 bg-dark pt-5 pb-5 rounded text-light col-lg-8">
+    <div className="">
+      
     {authToken && meetingId ? (
       <MeetingProvider
         config={{
