@@ -80,11 +80,6 @@ function App() {
           {() => (
             <>
               <Container meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
-              <div className="mt-3">
-                <button className="btn btn-primary" onClick={handleCopyMeetingId}>
-                  Copy Meeting ID
-                </button>
-              </div>
             </>
           )}
         </MeetingConsumer>

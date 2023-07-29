@@ -5,6 +5,8 @@ import ViewerView from "./ViewerView";
 import RealTimeGraphPlotter from "./Graphplotter";
 import Whiteboard from "./CollabBoard";
 import Chat from "./Chat";
+import './JoinScreen.css'
+import {FiCopy} from 'react-icons/fi'
 // this the initial page => where you wait to join the meet
 
 function Container(props) {
@@ -33,14 +35,19 @@ function Container(props) {
     setJoined("JOINING");
     join();
   };
+   const copyMeetingId = () => {
+    navigator.clipboard.writeText(props.meetingId)
+      .then(() => alert("Meeting ID copied to clipboard"))
+      .catch(() => alert("Failed to copy meeting ID"));
+  };
     const mMeetingRef = useRef(mMeeting);
     useEffect(() => {
     mMeetingRef.current = mMeeting;
   }, [mMeeting]);
 console.log(mMeeting)
   return (
-    <div className="container">
-      <h4>Meeting Id: {props.meetingId}</h4>
+    <div className="container idscreen">
+      <h4>Meeting Id : {props.meetingId} <FiCopy onClick={copyMeetingId} /></h4>
       {joined && joined === "JOINED" ? (
         mMeeting.localParticipant.mode === Constants.modes.CONFERENCE ? (
           <>
@@ -58,7 +65,7 @@ console.log(mMeeting)
       ) : joined && joined === "JOINING" ? (
         <p>Joining the meeting...</p>
       ) : (
-        <button className="btn btn-warning" onClick={joinMeeting}>Join</button>
+        <button className="btn btn-join" onClick={joinMeeting}>Join</button>
       )}
     </div>
   );

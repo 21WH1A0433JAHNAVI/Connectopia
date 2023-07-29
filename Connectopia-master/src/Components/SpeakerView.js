@@ -73,7 +73,7 @@ function SpeakerView() {
   return (
     <div> 
       {/* Controls for the meeting */}
-      <Controls />
+      
       {hlsState !== "HLS_PLAYABLE" ? (
         <div>
           <p>HLS has not started yet or is stopped</p>
@@ -105,6 +105,8 @@ function SpeakerView() {
       {viewers.map((participant) => (
         <ParticipantView participantId={participant.id} key={participant.id} />
       ))}
+      <Controls />
+      
     </div>
   );
 }
