@@ -3,7 +3,19 @@
 }
 .message{
     list-style-type: none;
-    background-color: gray;
+    background-color: rgb(21, 195, 154);
+    width: 270px;
+    word-wrap: break-word;
 
 }
 
+.chat-div{
+    position:relative;
+    min-width: 300px;
+    max-width: 310px;
+}
+
+.card-footer-send{
+    position: absolute;
+    bottom: 0;
+}

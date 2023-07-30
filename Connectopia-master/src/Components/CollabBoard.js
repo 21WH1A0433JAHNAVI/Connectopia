@@ -69,12 +69,11 @@ const Whiteboard = () => {
   };
 
   return (
-    <div>
-      <h1>Real-Time Collaborative Whiteboard</h1>
+    <div className='bg-light' >
+      <h6>Real-Time Collaborative Whiteboard</h6>
       <div>
         <label>Color: </label>
         <input type="color" value={brushColor} onChange={handleColorChange} />
-
         <label>Size: </label>
         <input
           type="range"

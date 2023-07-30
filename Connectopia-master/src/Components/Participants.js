@@ -36,7 +36,8 @@ function Participants() {
     return viewersParticipants;
   }, [participants]);
   return (
-    <div>
+    <div className="">
+      <h6 className='text-light'>Participants</h6>
       {speakers.map((participant) => (
         <ParticipantView participantId={participant.id} key={participant.id} />
       ))}

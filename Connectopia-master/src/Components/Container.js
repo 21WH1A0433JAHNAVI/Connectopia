@@ -47,7 +47,19 @@ function Container(props) {
 console.log(mMeeting)
   return (
     <div className="">
-      <h4 className="mt-5">Meeting Id : {props.meetingId} <FiCopy onClick={copyMeetingId} /></h4>
+      <div className="top-bar d-flex justify-content-between px-4 py-2">
+        <h6 className="font-weight-bold"><img
+        src={require("../assets/connectopia_logo.png")}
+        height="20"
+        alt="Connectopia"
+        loading="lazy"
+        className="me-1 text-dark font-weight-bold"
+      />
+       Connectopia.
+      </h6>
+      <h6 className="meeting-id">Meeting Id : {props.meetingId} <FiCopy onClick={copyMeetingId} className="copy"/></h6>
+      </div>
+      
       {joined && joined === "JOINED" ? (
         mMeeting.localParticipant.mode === Constants.modes.CONFERENCE ? (
           <>
@@ -56,11 +68,11 @@ console.log(mMeeting)
           
         ) : mMeeting.localParticipant.mode === Constants.modes.VIEWER ? (
           <>
-            {/* <ViewerView />
-            <RealTimeGraphPlotter/>
+            <SpeakerView />
+            {/* <RealTimeGraphPlotter/>
             <Whiteboard/>
             <Chat/> */}
-            <SpeakerView />
+            {/* <SpeakerView /> */}
           </>
         ) : null
       ) : joined && joined === "JOINING" ? (

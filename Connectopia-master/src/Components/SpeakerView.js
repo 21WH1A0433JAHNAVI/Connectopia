@@ -13,7 +13,7 @@ import {
 import Controls from "./Controls";
 import ParticipantView from "./ParticipantView";
 import Hls from "hls.js";
-import Whiteboard from "./Whiteboard";
+import Whiteboard from "./CollabBoard";
 import ExcalidrawBoard from "./Excalidraw";
 import Participants from "./Participants";
 import Chat from "./Chat";
@@ -24,15 +24,16 @@ import {TiMessages} from 'react-icons/ti'
 import {FaUserGroup} from 'react-icons/fa'
 import {MdGroup,MdGroupOff} from 'react-icons/md'
 import { BsSend } from "react-icons/bs";
+import RealTimeGraphPlotter from "./Graphplotter";
 const socket = io('http://localhost:4000');
 function SpeakerView() {
   //Get the participants and hlsState from useMeeting
   const { participants, hlsState } = useMeeting();
-  const [showParticipants, setShowParticipants] = useState(true);
-
+  const [showParticipants, setShowParticipants] = useState(false);
+  
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
-  const [showMessages, setShowMessages] = useState(true)
+  const [showMessages, setShowMessages] = useState(false)
   useEffect(() => {
       socket.on('receiveMessage', (messageData) => {
       setMessages((prevMessages) => [...prevMessages, messageData]);
@@ -116,19 +117,21 @@ const handleToggleParticipants = () => {
 
   return (
     <div className=""> 
-    <div className="d-flex flex-row">
+    <div className="d-flex rounded">
       {/* Controls for the meeting */}
       {showParticipants && (
-        <Participants/>
+        <div className="bg-dark overflow-auto p-2 w-25" style={{maxHeight: "700px" }}>
+           <Participants/>
+        </div>
       )}
       
       {hlsState !== "HLS_PLAYABLE" ? (
         <div>
-          <p>HLS has not started yet or is stopped</p>
+          <p>Loading...</p>
         </div>
       ) : (
         hlsState === "HLS_PLAYABLE" && (
-          <div className="container mt-4 mb-4 rounded border-none">
+          <div className="bg-dark p-2">
             
             <video
               ref={playerRef}
@@ -149,10 +152,10 @@ const handleToggleParticipants = () => {
       )}
       {showMessages && (
         //here is the messages div
-      <div className='bg-light border rounded p-3'>
-        <h2 className='text-dark'>Chat</h2>
+      <div className='bg-dark chat-div'>
+        <h6 className='text-light text-center mt-2'>Chat</h6>
         <div>
-        <ul>
+        <ul className="px-3">
           <div class="d-flex justify-content-between">
               {/* <p class="small mb-1 text-muted">23 Jan 6:10 pm</p>
               <p class="small mb-1">Johny Bullock</p> */}
@@ -165,7 +168,7 @@ const handleToggleParticipants = () => {
               
               
               {messages.map((messageData) => (
-            <li className='message small p-2 me-3 mb-3 text-white rounded-3' key={messageData.id}>{messageData.message}</li>
+            <li className='message small py-1 px-2 me-3 mb-3 text-white rounded-3' key={messageData.id}>{messageData.message}</li>
             ))}
             </div>
               {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
@@ -175,7 +178,7 @@ const handleToggleParticipants = () => {
           
         </ul>
         </div>
-        <div className="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+        <div className="card-footer text-muted d-flex justify-content-start align-items-center p-3" >
         <div className="card-footer-send text-muted d-flex justify-content-start align-items-center p-3">
           <input className='form-control me-2' placeholder="Type message"
           type="text"
@@ -188,13 +191,22 @@ const handleToggleParticipants = () => {
         </div>
       </div>)}
       </div>
-      <Controls />
-      <button onClick={handleToggleParticipants}>
-        {showParticipants ? <MdGroup/> : <MdGroupOff/>}
-      </button>
-      <button onClick={handleToggleMessages}>
-        {showMessages ? <TiMessages/> : <TiMessages/>}
-      </button>
+      <div className="d-flex justify-content-center mx-auto py-3 bg-dark border border-light rounded gap-2">
+        <Controls />
+        <button className = "btn btn-light" onClick={handleToggleParticipants}> 
+          {showParticipants ? <MdGroup/> : <MdGroupOff/>}
+        </button>
+        <button className = "btn btn-light" onClick={handleToggleMessages}>
+          {showMessages ? <TiMessages/> : <TiMessages/>}
+        </button>
+      </div>
+      
+      
+      <div className="d-flex">
+        <RealTimeGraphPlotter/>
+        <Whiteboard/>
+      </div>
+      
       
 
     </div>

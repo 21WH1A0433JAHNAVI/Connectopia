@@ -14,13 +14,13 @@ function Controls() {
   return (
     <div>
       <button className="btn btn-danger me-2" onClick={() => leave()}>Leave</button>
-      <button className="btn btn-danger" onClick={() => end()}>end</button>
+      {/* <button className="btn btn-danger" onClick={() => end()}>end</button> */}
       &emsp;|&emsp;
       
       <button className="btn btn-light me-2" onClick={() => toggleMic()}><BsFillMicFill/></button>
       <button className="btn btn-light" onClick={() => toggleWebcam()}><BsFillCameraVideoFill/></button>
       &emsp;|&emsp;
-      <button className="btn btn-light me-2" onClick={() => toggleScreenShare()}><TbScreenShare/></button>
+      {/* <button className="btn btn-light me-2" onClick={() => toggleScreenShare()}><TbScreenShare/></button> */}
     </div>
   );
 }
