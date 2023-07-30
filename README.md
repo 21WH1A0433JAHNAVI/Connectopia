@@ -1,21 +1,20 @@
-# C0nnectopia
+# Connectopia
 
-This is a video-conferencing application using React, HTML, CSS, and node.js.
+This is a video-conferencing application using React, HTML, CSS, and node.js mainly used for online teachers.
 
 
 To run this project:
+Install node modules in the root folder by using npm install.
 ### `npm start`
+This starts the backend server on PORT 4000.
+To start the frontend react application:
+### `cd frontend`
+Install node modules in the frontend folder. Then run it using:
+### `npm start`
+Runs the app on PORT 3000.
 
-Runs the app in the development mode.\
-[http://localhost:3000] opens automatically in your browser.
 
-If not open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.
-
-In this web application, we have features like a whiteboard, graph plotter, screen sharing and chat feature.
-It records the meeting until it's terminated. 
+In this web application, we have features like a whiteboard, graph plotter, screen sharing and chat features along with replayable option.
 Therefore you can always go backward and catch up if you've missed any points.
-
 
 To learn React, check out the [React documentation](https://reactjs.org/).
