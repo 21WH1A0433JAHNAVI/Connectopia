@@ -8,7 +8,7 @@ Install node modules in the root folder by using npm install.
 ### `npm start`
 This starts the backend server on PORT 4000.
 To start the frontend react application:
-### `cd frontend`
+### `cd Connectopia-master`
 Install node modules in the frontend folder. Then run it using:
 ### `npm start`
 Runs the app on PORT 3000.
