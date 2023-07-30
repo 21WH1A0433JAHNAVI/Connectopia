@@ -2,3 +2,15 @@
     background-color: rgb(21, 195, 154);
     color: white;
 }
+.copy:hover{
+    cursor: pointer;
+    padding: 1px;
+}
+.meeting-id{
+    margin-left: 5px;
+    color:white;
+}
+.top-bar{
+    background-color: rgb(21, 195, 154);
+    color: white;
+}

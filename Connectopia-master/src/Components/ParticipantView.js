@@ -56,10 +56,13 @@ function ParticipantView(props) {
   console.log(props)
    
   return (
-    <div>
+    <div className=''>
       <p className='participant-details'>
-        {displayName}{" "}{webcamOn ? <BsFillCameraVideoFill/> : <BsFillCameraVideoOffFill/>}{" "}
+        {displayName}{" "}
+        <p className='icons'>
+        {webcamOn ? <BsFillCameraVideoFill/> : <BsFillCameraVideoOffFill/>}{" "}
         {micOn ? <BsMicFill/> : <BsMicMuteFill/>}
+        </p>
       </p>
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
       {webcamOn && (

@@ -31,27 +31,16 @@ const Chat = () => {
   };
 
   return (
-    <div className='bg-light border rounded p-3'>
-      <h2 className='text-dark'>Chat</h2>
+    <div className='bg-light border rounded'>
+      {/* <h5 className='text-dark'>Chat</h5> */}
       <div>
         <ul>
-          <div class="d-flex justify-content-between">
-              {/* <p class="small mb-1 text-muted">23 Jan 6:10 pm</p>
-              <p class="small mb-1">Johny Bullock</p> */}
-            </div>
             <div class="d-flex flex-row justify-content-start mb-4 pt-1">
               <div>
-                {/* <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">Dolorum quasi voluptates quas
-                  amet in
-                  repellendus perspiciatis fugiat</p> */}
-              
-              
               {messages.map((messageData) => (
-            <li className='message small p-2 me-3 mb-3 text-white rounded-3' key={messageData.id}>{messageData.message}</li>
-            ))}
-            </div>
-              {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                alt="avatar 1" style={{width: "45px", height: "100%"}}/> */}
+              <li className='message small me-2 mb-3 text-white rounded-3' key={messageData.id}>{messageData.message}</li>
+              ))}
+              </div>
             </div>
 
           

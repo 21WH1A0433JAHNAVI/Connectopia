@@ -58,12 +58,12 @@ function JoinScreen({ getMeetingAndToken, setMode }) {
       />
       <br />
       <button className="btn btn-join" onClick={() => onClick("CONFERENCE", "host")}>
-        Join as Host
+        Join
       </button>{" "}
       {" "}
-      <button className="btn btn-join" onClick={() => onClick("VIEWER", "participant")}>
+      {/* <button className="btn btn-join" onClick={() => onClick("VIEWER", "participant")}>
         Join as Viewer
-      </button>
+      </button> */}
       <br />
       <br />
       <button className="btn btn-create" onClick={() => onClick("CONFERENCE", "host")}>

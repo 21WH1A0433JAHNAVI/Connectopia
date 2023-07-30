@@ -49,11 +49,11 @@ const RealTimeGraphPlotter = () => {
   };
 
   return (
-    <div>
-      <h1>Real-Time Graph Plotter (Single Variable)</h1>
-      <div>
-        <input type="text" value={equation} onChange={handleEquationChange} />
-        <button onClick={() => setEquation('x^2')}>Default</button>
+    <div className='bg-dark text-light p-3'>
+      <h6>Real-Time Graph Plotter (Single Variable)</h6>
+      <div className='d-flex gap-2 px-2 mb-2'>
+        <input type="text" className='form-control ' value={equation} onChange={handleEquationChange} />
+        <button className='btn btn-light' onClick={() => setEquation('x^2')}>Default</button>
       </div>
       <Plot
         data={[
